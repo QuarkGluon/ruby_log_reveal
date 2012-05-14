@@ -1,4 +1,0 @@
-RubyLogReveal
-=============
-
-rubylogreveal
