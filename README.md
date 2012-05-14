@@ -1,30 +1,30 @@
 RubyLogReveal
 =============
 
-Ruby Log Reveal allows log messages to be sent to LogReveal using the HTTPS API.
+Ruby Log Reveal allows log messages to be sent to LogReveal (http://logrevealhq.com) using the HTTPS API.
 
 It can be used instead of the default Ruby Logger and will return an instance of Logger.
 
 Usage
 -----
 
+RubyLogReveal can send either a string, with severity:
+
     require 'ruby_log_reveal'
+    log = RubyLogReveal.new(<LOGREVEAL_LOGSTREAM_INPUT_URL>)
+    log.warn("Your Ruby application warning message")
 
-    log = RubyLogReveal.new(<INPUT URL>)
-
-    log.warn("A typical Ruby application warning message")
-
-Or
+Or it can utilise a hash for key/value pair logging, again with severity:
 
     log.error({ :user_id => 23, :username => "johnsmith", :web_page => "/blog/how-to-build-a-logging-system", :message => "Blog object not found." })
 
 
-### With Rails
+### RubyLogReveal and Ruby on Rails
 
-config/environments/production.rb
+In the 'config/environments/production.rb'
 
     RailsApplication::Application.configure do
-      config.logger = RubyLogReveal.new(<INPUT URL>)
+      config.logger = RubyLogReveal.new(<LOGREVEAL_LOGSTREAM_INPUT_URL>)
     end
 
 Bugs
