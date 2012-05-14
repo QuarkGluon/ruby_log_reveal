@@ -1,5 +1,5 @@
 require 'uri'
-require 'http/loghttp'
+require './lib/ruby_log_reveal/client/http/loghttp'
 
 module Logglier
   module Client

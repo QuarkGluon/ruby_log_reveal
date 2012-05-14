@@ -1,5 +1,5 @@
 require 'logger'
-require 'ruby_log_reveal/client'
+require './lib/ruby_log_reveal/client'
 
 module RubyLogReveal
 

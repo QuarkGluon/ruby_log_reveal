@@ -1,3 +1,6 @@
+require 'uri'
+require './lib/ruby_log_reveal/client/http'
+
 module RubyLogReveal
   module Client
 

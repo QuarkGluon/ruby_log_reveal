@@ -7,7 +7,7 @@ module RubyLogReveal
       class LogHTTP
 
         URL_EXCEPTIONS = [
-	  Errno::EPIPE, Errno:ECONNRESET, Errno::ETIMEOUT,
+	  Errno::EPIPE, Errno::ECONNRESET, Errno::ETIMEDOUT,
 	  Errno::ECONNREFUSED, EOFError, TimeoutError, 
 	  OpenSSL::SSL::SSLError
 	]
