@@ -1,13 +1,21 @@
 require 'uri'
 require './lib/ruby_log_reveal/client/http/loghttp'
 
-module Logglier
+module RubyLogReveal
   module Client
     class HTTP
-      attr_reader :log_sender    
+      attr_reader :input_uri, :log_sender
 
-      def initialize(input_uri, options={})
-        @log_sender = RubyLogReveal::Client::HTTP::LogHTTP.new(input_uri, options)
+      def initialize(options={})
+        @input_uri = options[:input_url]
+
+        begin
+          @input_uri = URI.parse(@input_uri)
+        rescue URI::InvalidURIError => e
+          raise URLRequired.new("Invalid Input URL: #{@input_uri}")
+        end
+
+        @log_sender = RubyLogReveal::Client::HTTP::LogHTTP.new(@input_uri, options)
       end
 
       def write(log_msg)

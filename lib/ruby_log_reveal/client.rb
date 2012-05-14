@@ -17,7 +17,7 @@ module RubyLogReveal
         raise RequiredInputURL.new("The input URL #{input_uri} was incorrect")
       end
 
-      RubyLogReveal::Client::HTTP.new(input_uri, options)
+      RubyLogReveal::Client::HTTP.new(options)
     end
 
     def stringify_hash(hash)
