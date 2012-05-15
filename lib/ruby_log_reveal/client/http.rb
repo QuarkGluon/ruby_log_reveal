@@ -18,6 +18,23 @@ module RubyLogReveal
         @log_sender = RubyLogReveal::Client::HTTP::LogHTTP.new(@input_uri, options)
       end
 
+      def formatter
+        proc do |severity, datetime, progname, msg|
+	  message = "timestamp=#{URI.encode(datetime.to_s)}&"
+	  message << "severity=#{URI.encode(severity.to_s)}&"
+	  message << "program_name=#{URI.encode(progname.to_s)}&"
+	  case msg
+	  when Hash
+	    message << msg.map{|k,v| "#{URI.encode(k.to_s)}=#{URI.encode(v.to_s)}"}.join("&")
+	  when String
+	    message << "message=#{URI.encode(msg)}"
+	  else
+	    message << "message=#{URI.encode(msg.inspect)}"
+	  end	
+	  message
+        end
+      end
+
       def write(log_msg)
         @log_sender.send_log(log_msg)
       end
