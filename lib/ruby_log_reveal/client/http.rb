@@ -1,5 +1,5 @@
+require File.join(File.dirname(__FILE__), 'http', 'loghttp')
 require 'uri'
-require './lib/ruby_log_reveal/client/http/loghttp'
 
 module RubyLogReveal
   module Client

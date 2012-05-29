@@ -1,5 +1,5 @@
+require File.join(File.dirname(__FILE__), 'ruby_log_reveal', 'client')
 require 'logger'
-require './lib/ruby_log_reveal/client'
 
 module RubyLogReveal
 
