@@ -1,7 +1,7 @@
 RubyLogReveal
 =============
 
-Ruby Log Reveal allows log messages to be sent to LogReveal (http://logrevealhq.com) using the HTTPS API.
+Ruby Log Reveal allows log messages to be sent to [LogReveal](http://logrevealhq.com) using the HTTPS API.
 
 It can be used instead of the default Ruby Logger and will return an instance of Logger.
 
@@ -13,7 +13,7 @@ Installation
 Usage
 -----
 
-The first step is to obtain a LogReveal LogStream HTTPS input URL. This will be given to you when you create an account at LogReveal. 
+The first step is to obtain a LogReveal LogStream HTTPS input URL. This will be given to you when you create an account at [LogReveal](http://logrevealhq.com).
 
 To start logging, RubyLogReveal can send either a log message string with severity:
 
