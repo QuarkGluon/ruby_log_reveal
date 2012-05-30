@@ -1,5 +1,6 @@
 require File.join(File.dirname(__FILE__), 'http', 'loghttp')
 require 'uri'
+require 'CGI'
 
 module RubyLogReveal
   module Client
@@ -20,16 +21,16 @@ module RubyLogReveal
 
       def formatter
         proc do |severity, datetime, progname, msg|
-	  message = "timestamp=#{URI.encode(datetime.to_s)}&"
-	  message << "severity=#{URI.encode(severity.to_s)}&"
-	  message << "program_name=#{URI.encode(progname.to_s)}&"
+	  message = "timestamp=#{CGI.escape(datetime.to_s)}&"
+	  message << "severity=#{CGI.escape(severity.to_s)}&"
+	  message << "program_name=#{CGI.escape(progname.to_s)}&"
 	  case msg
 	  when Hash
-	    message << msg.map{|k,v| "#{URI.encode(k.to_s)}=#{URI.encode(v.to_s)}"}.join("&")
+	    message << msg.map{|k,v| "#{CGI.escape(k.to_s)}=#{CGI.escape(v.to_s)}"}.join("&")
 	  when String
-	    message << "message=#{URI.encode(msg)}"
+	    message << "message=#{CGI.escape(msg)}"
 	  else
-	    message << "message=#{URI.encode(msg.inspect)}"
+	    message << "message=#{CGI.escape(msg.inspect)}"
 	  end	
 	  message
         end

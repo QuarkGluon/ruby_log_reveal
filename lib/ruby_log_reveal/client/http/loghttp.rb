@@ -18,8 +18,8 @@ module RubyLogReveal
 	  @input_uri = input_uri
           @verify_mode = options[:verify_mode] || OpenSSL::SSL::VERIFY_PEER
           @ca_file = options[:ca_file]
-          @read_timeout = options[:read_timeout] || 5
-          @open_timeout = options[:open_timeout] || 5
+          @read_timeout = options[:read_timeout] || 2
+          @open_timeout = options[:open_timeout] || 2
           @failsafe = options[:failsafe] || $stderr
           @headers = {}
           connect!
@@ -32,7 +32,7 @@ module RubyLogReveal
 	    @http.request_post(@input_uri.path, log_msg, @headers)
 	  rescue *URL_EXCEPTIONS => e
 	    if num_retries < MAX_RETRIES
-	      retries += 1
+	      num_retries += 1
 	      rescue_retry(e, log_msg, num_retries)
 	      sleep num_retries
 	      connect!
@@ -57,13 +57,17 @@ module RubyLogReveal
 	  @http.open_timeout = @open_timeout
 	end
 
-	def rescue_retry(exception, msg, retries)
-	  @failsafe.puts ""
+	def rescue_retry(exception, msg, num_retries)
+	  @failsafe.puts "Warning: #{num_retries}/#{MAX_RETRIES} retries. " + rescue_message(exception, msg)
 	end
 
 	def rescue_errors(exception, msg)
-	  @failsafe.puts ""
+	  @failsafe.puts 'Error: ' + rescue_message(exception, msg)
 	end
+
+	def rescue_message(exception, msg)
+          "Got #{exception.class}: #{exception.message} while attempting to post log: #{msg}"
+        end
       end
 
     end
